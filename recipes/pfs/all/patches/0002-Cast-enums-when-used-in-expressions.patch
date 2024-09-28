@@ -1,0 +1,13 @@
+diff --git a/src/parsers/mountinfo.cpp b/src/parsers/mountinfo.cpp
+index 1e044c6..1a6c2a4 100644
+--- a/src/parsers/mountinfo.cpp
++++ b/src/parsers/mountinfo.cpp
+@@ -62,7 +62,7 @@ mount parse_mountinfo_line(const std::string& line)
+     static const char OPTIONS_DELIM = ',';
+ 
+     auto tokens = utils::split(line);
+-    if (tokens.size() < PRE_COUNT + POST_COUNT)
++    if (tokens.size() < int(PRE_COUNT) + int(POST_COUNT))
+     {
+         throw parser_error("Corrupted mountinfo - Unexpected tokens count",
+                            line);
