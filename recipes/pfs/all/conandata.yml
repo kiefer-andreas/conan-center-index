@@ -10,14 +10,14 @@ sources:
     - "https://mirror1.net/package-1.1.0.tar.gz"
     - "https://mirror2.net/package-1.1.0.tar.gz"
     sha256: "________________________________________________________________"
+  "0.10.0":
+    url: "https://github.com/dtrugman/pfs/archive/refs/tags/v0.10.0.tar.gz"
+    sha256: "81c2ed7464f10a5b192b1e61271399c81bac14bf119d247434711ac4fb82035d"
 patches:
-  # Newer versions at the top
-  "1.1.0":
-    - patch_file: "patches/0001-fix-cmake.patch"
-      patch_description: "correct the order of cmake min and project"
-      patch_type: "backport"
-      patch_source: "https://github.com/owner/package/pulls/42"
-    - patch_file: "patches/0002-fix-linux.patch"
-      patch_description: "add missing header to support linux"
-      patch_type: "portability"
-      patch_source: "https://github.com/owner/package/issues/0"
+  "0.10.0":
+    - patch_file: "patches/0001-Fix-unqualified-id-error.patch"
+      patch_description: "Fix build break in samples"
+      patch_type: "conan"
+    - patch_file: "patches/0002-Cast-enums-when-used-in-expressions.patch"
+      patch_description: "Fix deprecated-enum-enum-conversion with C++20"
+      patch_type: "conan"

@@ -1,16 +1,41 @@
-#include <cstdlib>
 #include <iostream>
-#include "package/foobar.hpp"
 
+#include <pfs/procfs.hpp>
 
-int main(void) {
-    std::cout << "Create a minimal usage for the target project here." << std::endl;
-    std::cout << "Avoid big examples, bigger than 100 lines" << std::endl;
-    std::cout << "Avoid networking connections." << std::endl;
-    std::cout << "Avoid background apps or servers." << std::endl;
-    std::cout << "The propose is testing the generated artifacts only." << std::endl;
+int main(int argc, char **argv)
+{
+    if (argc != 2)
+    {
+        std::cout << "Usage: " << argv[0] << " <filename>" << std::endl;
+        return 2;
+    }
+    auto file = std::string(argv[1]);
 
-    foobar.print_version();
+    auto pfs = pfs::procfs();
+    for (const auto& process : pfs.get_processes())
+    {
+        for (const auto& thread : process.get_tasks())
+        {
+            for (const auto& fd : thread.get_fds())
+            {
+                try
+                {
+                    if (fd.second.get_target() == file)
+                    {
+                        std::cout <<  "tid[" << thread.id()
+                                  << "] fd[" << fd.second.num()
+                                  << "]" << std::endl;
+                    }
+                }
+                catch (const std::exception& ex)
+                {
+                    std::cout <<  "tid[" << thread.id()
+                              << "] fd[" << fd.second.num()
+                              << "] resolution failed" << std::endl;
+                }
+            }
+        }
+    }
 
-    return EXIT_SUCCESS;
+    return 0;
 }
