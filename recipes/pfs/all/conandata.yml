@@ -1,19 +1,15 @@
 sources:
-  # Newer versions at the top
-  "1.2.0":
-    url:
-    - "https://mirror1.net/package-1.2.0.tar.gz"
-    - "https://mirror2.net/package-1.2.0.tar.gz"
-    sha256: "________________________________________________________________"
-  "1.1.0":
-    url:
-    - "https://mirror1.net/package-1.1.0.tar.gz"
-    - "https://mirror2.net/package-1.1.0.tar.gz"
-    sha256: "________________________________________________________________"
+  "0.11.0":
+    url: "https://github.com/dtrugman/pfs/archive/refs/tags/v0.11.0.tar.gz"
+    sha256: "1e883a02ba4b45f4567a5f4fa3307fff79b6ab45a19ba47e6dbd742e2d36f765"
   "0.10.0":
     url: "https://github.com/dtrugman/pfs/archive/refs/tags/v0.10.0.tar.gz"
     sha256: "81c2ed7464f10a5b192b1e61271399c81bac14bf119d247434711ac4fb82035d"
 patches:
+  "0.11.0":
+    - patch_file: "patches/0002-Cast-enums-when-used-in-expressions.patch"
+      patch_description: "Fix deprecated-enum-enum-conversion with C++20"
+      patch_type: "conan"
   "0.10.0":
     - patch_file: "patches/0001-Fix-unqualified-id-error.patch"
       patch_description: "Fix build break in samples"
